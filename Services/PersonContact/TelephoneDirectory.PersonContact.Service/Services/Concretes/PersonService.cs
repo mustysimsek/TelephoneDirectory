@@ -42,16 +42,21 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Concretes
             return Response<Person>.Success(personDto.Adapt<Person>(), 200);
         }
 
-        public async Task<Response<PersonDetailsDto>> GetbyIdAsync(string personUuid)
+        public async Task<Response<Person>> GetbyIdAsync(string personUuid)
         {
             var person = await _personCollection.Find<Person>(x => x.UUID == personUuid).FirstOrDefaultAsync();
 
             if (person == null)
             {
-                return Response<PersonDetailsDto>.Fail("Person not found", 404);
+                return Response<Person>.Fail("Person not found", 404);
             }
 
-            return Response<PersonDetailsDto>.Success(person.Adapt<PersonDetailsDto>(), 200);
+            var hasPersonContactInfo = await _personContactInfoCollection.
+                Find<PersonContactInfo>(i => i.PersonId == personUuid).ToListAsync();
+
+            person.PersonContactInfos = hasPersonContactInfo;
+
+            return Response<Person>.Success(person, 200);
         }
 
         public async Task<Response<NoContent>> DeleteAsync(string personUuid)

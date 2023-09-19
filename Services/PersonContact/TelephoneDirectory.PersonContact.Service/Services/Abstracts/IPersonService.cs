@@ -10,7 +10,7 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Abstracts
 	{
         Task<Response<List<Person>>> GetAllAsync();
         Task<Response<Person>> CreateAsync(PersonDto personDto);
-        Task<Response<PersonDetailsDto>> GetbyIdAsync(string personUuid);
+        Task<Response<Person>> GetbyIdAsync(string personUuid);
         Task<Response<NoContent>> DeleteAsync(string personUuid);
     }
 }
