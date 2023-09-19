@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TelephoneDirectory.PersonContact.Repository\TelephoneDirectory.PersonContact.Repository.csproj" />
+    <ProjectReference Include="..\..\..\Shared\TelephoneDirectory.Shared\TelephoneDirectory.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Services\" />
+    <None Remove="Services\Abstracts\" />
+    <None Remove="Services\Concretes\" />
+    <None Remove="Services\Dtos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Services\Abstracts\" />
+    <Folder Include="Services\Concretes\" />
+    <Folder Include="Services\Dtos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.21.0" />
+  </ItemGroup>
+</Project>
