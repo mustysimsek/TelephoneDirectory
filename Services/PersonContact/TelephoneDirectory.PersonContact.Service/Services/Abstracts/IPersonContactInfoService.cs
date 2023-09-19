@@ -8,7 +8,7 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Abstracts
 	public interface IPersonContactInfoService
 	{
         Task<Response<PersonContactInfo>> CreateAsync(PersonContactInfoDto personContactInfoDto);
-        Task<Response<NoContent>> DeleteAsync(Guid personContactInfoUuid);
+        Task<Response<NoContent>> DeleteAsync(string personContactInfoUuid);
     }
 }
 

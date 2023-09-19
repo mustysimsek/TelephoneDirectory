@@ -9,8 +9,8 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Dtos
 	public class PersonContactInfoDto
 	{
 
-        public PersonDto Person { get; set; }
-        public Guid PersonId { get; set; }
+        //public PersonDto Person { get; set; }
+        public string PersonId { get; set; }
         public PersonContactInfoType PersonContactInfoType { get; set; }
         public string Content { get; set; }
     }

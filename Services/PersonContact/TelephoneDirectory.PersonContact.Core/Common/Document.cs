@@ -8,7 +8,7 @@ namespace TelephoneDirectory.PersonContact.Core.Common
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public Guid UUID { get; set; }
+        public string UUID { get; set; }
 
         [BsonRepresentation(BsonType.DateTime)]
         public DateTime CreateDate { get; set; }

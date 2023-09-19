@@ -12,7 +12,7 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Concretes
 	public class PersonContactInfoService : IPersonContactInfoService
     {
         private readonly IMongoCollection<PersonContactInfo> _personContactInfoCollection;
-        private readonly IMongoCollection<Person> _personCollection;
+        //private readonly IMongoCollection<Person> _personCollection;
 
         public PersonContactInfoService(IDatabaseSettings databaseSettings)
         {
@@ -20,7 +20,7 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Concretes
             var database = client.GetDatabase(databaseSettings.DatabaseName);
             _personContactInfoCollection = database.GetCollection<PersonContactInfo>
                 (databaseSettings.PersonContactInfoCollectionName);
-            _personCollection = database.GetCollection<Person>(databaseSettings.PersonCollectionName);
+            //_personCollection = database.GetCollection<Person>(databaseSettings.PersonCollectionName);
         }
 
         public async Task<Response<PersonContactInfo>> CreateAsync(PersonContactInfoDto personContactInfoDto)
@@ -33,7 +33,7 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Concretes
             return Response<PersonContactInfo>.Success(personContactInfoDto.Adapt<PersonContactInfo>(), 200);
         }
 
-        public async Task<Response<NoContent>> DeleteAsync(Guid personContactInfoUuid)
+        public async Task<Response<NoContent>> DeleteAsync(string personContactInfoUuid)
         {
             var result = await _personContactInfoCollection.DeleteOneAsync(x => x.UUID == personContactInfoUuid);
 

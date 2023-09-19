@@ -5,11 +5,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+  <ItemGroup>
+      <FrameworkReference Include ="Microsoft.AspNetCore.App"/>
+  </ItemGroup>
   <ItemGroup>
     <None Remove="Dtos\" />
+    <None Remove="ControllerBases\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dtos\" />
+    <Folder Include="ControllerBases\" />
   </ItemGroup>
 </Project>
