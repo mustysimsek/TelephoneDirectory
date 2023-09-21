@@ -1,7 +1,10 @@
-﻿using Microsoft.Extensions.Options;
+﻿using MassTransit;
+using Microsoft.Extensions.Options;
 using TelephoneDirectory.PersonContact.Repository.Configurations;
 using TelephoneDirectory.PersonContact.Service.Services.Abstracts;
 using TelephoneDirectory.PersonContact.Service.Services.Concretes;
+using TelephoneDirectory.Shared.Interfaces;
+using TelephoneDirectory.Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
@@ -10,7 +13,18 @@ IConfiguration configuration = builder.Configuration;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddMassTransit(x =>
+{
+    //Default Port : 5672
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(configuration["RabbitMQUrl"], "/", host =>
+        {
+            host.Username("guest");
+            host.Password("guest");
+        });
+    });
+});
 builder.Services.Configure<DatabaseSettings>(configuration.GetSection("DatabaseSettings"));
 builder.Services.AddSingleton<IDatabaseSettings>(sp =>
 {
@@ -19,7 +33,7 @@ builder.Services.AddSingleton<IDatabaseSettings>(sp =>
 
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<IPersonContactInfoService, PersonContactInfoService>();
-
+builder.Services.AddScoped(typeof(IRabbitMqService), typeof(RabbitMqService));
 
 
 var app = builder.Build();

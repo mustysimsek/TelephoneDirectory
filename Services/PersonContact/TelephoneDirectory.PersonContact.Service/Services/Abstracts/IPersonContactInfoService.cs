@@ -9,6 +9,7 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Abstracts
 	{
         Task<Response<PersonContactInfo>> CreateAsync(PersonContactInfoDto personContactInfoDto);
         Task<Response<NoContent>> DeleteAsync(string personContactInfoUuid);
+        Task<Response<ReportDto>> GetReportByLocation(ReportDto reportDto);
     }
 }
 

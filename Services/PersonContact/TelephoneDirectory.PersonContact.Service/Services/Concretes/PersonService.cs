@@ -3,7 +3,6 @@ using Mapster;
 using MongoDB.Driver;
 using TelephoneDirectory.PersonContact.Core.Entities;
 using TelephoneDirectory.PersonContact.Repository.Configurations;
-using TelephoneDirectory.PersonContact.Repository.Repositories;
 using TelephoneDirectory.PersonContact.Service.Services.Abstracts;
 using TelephoneDirectory.PersonContact.Service.Services.Dtos;
 using TelephoneDirectory.Shared.Dtos;

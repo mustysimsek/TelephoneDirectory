@@ -12,11 +12,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Configurations\" />
-    <None Remove="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configurations\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.21.0" />
