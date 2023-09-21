@@ -7,18 +7,17 @@ namespace TelephoneDirectory.Shared.Services
 {
     public class RabbitMqService : IRabbitMqService
     {
-        private readonly ISendEndpointProvider _sendEndpointProvider;
+        //private readonly ISendEndpointProvider _sendEndpointProvider;
+        private readonly IBus _bus;
 
-        public RabbitMqService(ISendEndpointProvider sendEndpointProvider)
+        public RabbitMqService(IBus bus)
         {
-            _sendEndpointProvider = sendEndpointProvider;
+            _bus = bus;
         }
-
         public async Task SendMessage(CreateReportMessageCommand createReportMessageCommand)
         {
-            var sendEndpoint = await _sendEndpointProvider.
-                GetSendEndpoint(new Uri("queue:create-report-service"));
-            await sendEndpoint.Send<CreateReportMessageCommand>(createReportMessageCommand);
+            var sendEndpoint = await _bus.GetSendEndpoint(new Uri("queue:create-report-service"));
+            await sendEndpoint.Send(createReportMessageCommand);
         }
     }
 }

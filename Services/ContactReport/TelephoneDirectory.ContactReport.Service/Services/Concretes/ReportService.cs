@@ -48,24 +48,15 @@ namespace TelephoneDirectory.ContactReport.Service.Services.Concretes
             }
         }
 
-        public async Task<Shared.Dtos.Response<ReportDto>> CreateAsync(ReportCreateDto reportCreateDto)
-        {
-            var newReport = reportCreateDto.Adapt<Report>();
-
-            await _reportCollection.InsertOneAsync(newReport);
-
-            return Shared.Dtos.Response<ReportDto>.Success(newReport.Adapt<ReportDto>(), 200);
-        }
-
-        public async Task<Shared.Dtos.Response<List<ReportDto>>> GetAllAsync()
+        public async Task<Shared.Dtos.Response<List<Report>>> GetAllAsync()
         {
             var reports = await _reportCollection.Find(report => true).ToListAsync();
             if (reports == null)
             {
-                return Shared.Dtos.Response<List<ReportDto>>.Fail("There is no any report", 404);
+                return Shared.Dtos.Response<List<Report>>.Fail("There is no any report", 404);
             }
 
-            return Shared.Dtos.Response<List<ReportDto>>.Success(reports.Adapt<List<ReportDto>>(), 200);
+            return Shared.Dtos.Response<List<Report>>.Success(reports, 200);
         }
 
         public async Task<Shared.Dtos.Response<Report>> GetByIdAsync(string id)
@@ -77,25 +68,6 @@ namespace TelephoneDirectory.ContactReport.Service.Services.Concretes
             }
 
             return Shared.Dtos.Response<Report>.Success(report, 200);
-        }
-
-        public async Task<Shared.Dtos.Response<ReportDto>> GetByLocationAsync(string location)
-        {
-            var report = await _reportCollection.Find<Report>(x => x.Location == location).FirstOrDefaultAsync();
-
-            return Shared.Dtos.Response<ReportDto>.Success(report.Adapt<ReportDto>(), 200);
-        }
-
-        public async Task<Shared.Dtos.Response<NoContent>> UpdateAsync(Report report)
-        {
-            var result = await _reportCollection.FindOneAndReplaceAsync(x => x.UUID == report.UUID, report);
-
-            if (result == null)
-            {
-                return Shared.Dtos.Response<NoContent>.Fail("Report not found", 404);
-            }
-
-            return Shared.Dtos.Response<NoContent>.Success(204);
         }
 
         public async Task<Shared.Dtos.Response<ReportDto>> GenerateReport(ReportDto reportDto)

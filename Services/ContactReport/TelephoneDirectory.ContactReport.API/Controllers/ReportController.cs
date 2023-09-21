@@ -40,9 +40,9 @@ namespace TelephoneDirectory.ContactReport.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(ReportCreateDto reportCreateDto)
+        public async Task<IActionResult> Create(ReportDto reportDto)
         {
-            var response = await _reportService.CreateAsync(reportCreateDto);
+            var response = await _reportService.GenerateReport(reportDto);
 
             return CreateActionResultInstance(response);
         }

@@ -59,7 +59,7 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Concretes
             var reportRequest = reportDto;
 
             var personsAtLocation = await _personContactInfoCollection.
-                Find<PersonContactInfo>(x => x.Content == reportDto.Location.ToLower() && x.PersonContactInfoType == Core.Enums.PersonContactInfoType.Location).ToListAsync();
+            Find<PersonContactInfo>(x => x.Content == reportDto.Location.ToLower() && x.PersonContactInfoType == Core.Enums.PersonContactInfoType.Location).ToListAsync();
             var uniquePersonIds = personsAtLocation.Select(person => person.PersonId).Distinct().ToList();
             var personNumbersAtLocation = uniquePersonIds.Count();
 

@@ -7,20 +7,13 @@ using TelephoneDirectory.Shared.Interfaces;
 using TelephoneDirectory.Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-IConfiguration configuration = builder.Configuration;
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
-
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumer<ReportService>();
     //Default Port : 5672
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host(configuration["RabbitMQUrl"], "/", host =>
+        cfg.Host(builder.Configuration["RabbitMQUrl"], "/", host =>
         {
             host.Username("guest");
             host.Password("guest");
@@ -32,7 +25,14 @@ builder.Services.AddMassTransit(x =>
         });
     });
 });
-builder.Services.Configure<DatabaseSettings>(configuration.GetSection("DatabaseSettings"));
+// Add services to the container.
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
+
+
+builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
 builder.Services.AddSingleton<IDatabaseSettings>(sp =>
 {
     return sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
@@ -48,8 +48,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
+app.UseRouting();
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

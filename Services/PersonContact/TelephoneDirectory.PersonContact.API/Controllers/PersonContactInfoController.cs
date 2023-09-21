@@ -55,7 +55,7 @@ namespace TelephoneDirectory.PersonContact.API.Controllers
             createReportMessageCommand.ReportRequestDate = DateTime.Now;
             createReportMessageCommand.ReportStatus = (Shared.Enums.ReportStatus)Core.Enums.ReportStatus.Preparing;
 
-            await _rabbitMqService.SendMessage(createReportMessageCommand);
+            //await _rabbitMqService.SendMessage(createReportMessageCommand);
 
             var reportRequest = new ReportDto
             {
