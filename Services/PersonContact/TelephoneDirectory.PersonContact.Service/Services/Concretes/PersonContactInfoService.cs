@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using Mapster;
 using MongoDB.Driver;
 using TelephoneDirectory.PersonContact.Core.Entities;
+using TelephoneDirectory.PersonContact.Core.Enums;
 using TelephoneDirectory.PersonContact.Repository.Configurations;
 using TelephoneDirectory.PersonContact.Service.Services.Abstracts;
 using TelephoneDirectory.PersonContact.Service.Services.Dtos;
@@ -11,9 +13,10 @@ using TelephoneDirectory.Shared.Messages;
 
 namespace TelephoneDirectory.PersonContact.Service.Services.Concretes
 {
-	public class PersonContactInfoService : IPersonContactInfoService
+    public class PersonContactInfoService : IPersonContactInfoService
     {
         private readonly IMongoCollection<PersonContactInfo> _personContactInfoCollection;
+        private readonly IMongoCollection<Person> _personCollection;
         private readonly IRabbitMqService _rabbitMqService;
 
         public PersonContactInfoService(IDatabaseSettings databaseSettings, IRabbitMqService rabbitMqService)
@@ -22,6 +25,7 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Concretes
             var database = client.GetDatabase(databaseSettings.DatabaseName);
             _personContactInfoCollection = database.GetCollection<PersonContactInfo>
                 (databaseSettings.PersonContactInfoCollectionName);
+            _personCollection = database.GetCollection<Person>(databaseSettings.PersonCollectionName);
             _rabbitMqService = rabbitMqService;
         }
 
@@ -39,7 +43,7 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Concretes
         {
             var result = await _personContactInfoCollection.DeleteOneAsync(x => x.UUID == personContactInfoUuid);
 
-            if (result.DeletedCount>0)
+            if (result.DeletedCount > 0)
             {
                 return Response<NoContent>.Success(204);
             }
@@ -55,14 +59,15 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Concretes
             var reportRequest = reportDto;
 
             var personsAtLocation = await _personContactInfoCollection.
-                Find<PersonContactInfo>(x => x.Content == reportDto.Location).ToListAsync();
+                Find<PersonContactInfo>(x => x.Content == reportDto.Location.ToLower() && x.PersonContactInfoType == Core.Enums.PersonContactInfoType.Location).ToListAsync();
+            var uniquePersonIds = personsAtLocation.Select(person => person.PersonId).Distinct().ToList();
+            var personNumbersAtLocation = uniquePersonIds.Count();
 
-            var personNumbersAtLocation = personsAtLocation.Adapt<List<PersonContactInfo>>().Count();
-
-            var registeredPhoneNumbersAtLocation = personsAtLocation.Adapt<List<PersonContactInfo>>()
-                .Where(x => x.PersonContactInfoType == Core.Enums.PersonContactInfoType.PhoneNumber &&
-                         x.Content != null)
-                .Count();
+            var phoneNumbersForUniquePersons = await _personContactInfoCollection
+            .Find<PersonContactInfo>(x => uniquePersonIds.Contains(x.PersonId)
+            && x.PersonContactInfoType == Core.Enums.PersonContactInfoType.PhoneNumber).ToListAsync();
+            var uniquePhoneNumbersforPersonIds = phoneNumbersForUniquePersons.Select(person => person.PersonId).Distinct().ToList();
+            var registeredPhoneNumbersAtLocation = uniquePhoneNumbersforPersonIds.Count();
 
             response.Data = reportRequest.Adapt<ReportDto>();
 
@@ -71,7 +76,7 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Concretes
                 return Response<ReportDto>.Fail("There are no registered users at this location", 404);
             }
 
-            reportRequest.ReportStatus = ReportStatus.Completed;
+            reportRequest.ReportStatus = Dtos.ReportStatus.Completed;
             reportRequest.NumberOfRegisteredPersons = personNumbersAtLocation;
             reportRequest.NumberOfRegisteredPhones = registeredPhoneNumbersAtLocation;
 
@@ -81,6 +86,6 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Concretes
         }
 
     }
-    
+
 }
 

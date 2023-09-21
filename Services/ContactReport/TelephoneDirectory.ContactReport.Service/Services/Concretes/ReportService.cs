@@ -60,6 +60,10 @@ namespace TelephoneDirectory.ContactReport.Service.Services.Concretes
         public async Task<Shared.Dtos.Response<List<ReportDto>>> GetAllAsync()
         {
             var reports = await _reportCollection.Find(report => true).ToListAsync();
+            if (reports == null)
+            {
+                return Shared.Dtos.Response<List<ReportDto>>.Fail("There is no any report", 404);
+            }
 
             return Shared.Dtos.Response<List<ReportDto>>.Success(reports.Adapt<List<ReportDto>>(), 200);
         }
@@ -67,6 +71,10 @@ namespace TelephoneDirectory.ContactReport.Service.Services.Concretes
         public async Task<Shared.Dtos.Response<Report>> GetByIdAsync(string id)
         {
             var report = await _reportCollection.Find<Report>(x => x.UUID == id).FirstOrDefaultAsync();
+            if (report == null)
+            {
+                return Shared.Dtos.Response<Report>.Fail("Report not found", 404);
+            }
 
             return Shared.Dtos.Response<Report>.Success(report, 200);
         }

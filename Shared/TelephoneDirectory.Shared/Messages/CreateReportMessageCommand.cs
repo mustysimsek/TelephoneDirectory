@@ -6,8 +6,6 @@ namespace TelephoneDirectory.Shared.Messages
 {
 	public class CreateReportMessageCommand
 	{
-        //public string Location { get; set; }
-        public string ReportId { get; set; }
         public DateTime ReportRequestDate { get; set; }
         public string Location { get; set; }
         public int NumberOfRegisteredPersons { get; set; }

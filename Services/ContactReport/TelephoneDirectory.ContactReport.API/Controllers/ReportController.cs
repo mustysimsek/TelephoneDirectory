@@ -11,13 +11,13 @@ using TelephoneDirectory.Shared.ControllerBases;
 
 namespace TelephoneDirectory.ContactReport.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/reports")]
     [ApiController]
-    public class ReportsController : CustomBaseController
+    public class ReportController : CustomBaseController
     {
         private readonly IReportService _reportService;
 
-        public ReportsController(IReportService reportService)
+        public ReportController(IReportService reportService)
         {
             _reportService = reportService;
         }
@@ -30,7 +30,7 @@ namespace TelephoneDirectory.ContactReport.API.Controllers
         }
 
         //reports/1
-        [HttpGet("{id}")]
+        [HttpGet, Route("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
             var response = await _reportService.GetByIdAsync(id);
