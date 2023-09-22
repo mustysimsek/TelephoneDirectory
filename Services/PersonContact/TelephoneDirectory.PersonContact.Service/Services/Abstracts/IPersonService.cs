@@ -8,10 +8,10 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Abstracts
 {
 	public interface IPersonService
 	{
-        Task<List<Person>> GetAllAsync();
+        Task<Response<List<Person>>> GetAllAsync();
         Task<Response<Person>> CreateAsync(PersonDto personDto);
-        Task<Response<List<PersonContactInfoDto>>> GetbyIdAsync(Guid personUuid);
-        Task<Response<NoContent>> DeleteAsync(Guid personUuid);
+        Task<Response<Person>> GetbyIdAsync(string personUuid);
+        Task<Response<NoContent>> DeleteAsync(string personUuid);
     }
 }
 

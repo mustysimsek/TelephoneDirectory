@@ -21,6 +21,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneDirectory.PersonCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneDirectory.PersonContact.Service", "Services\PersonContact\TelephoneDirectory.PersonContact.Service\TelephoneDirectory.PersonContact.Service.csproj", "{DDE6208B-07EC-43D0-B3D5-838897927ADD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneDirectory.ContactReport.Core", "Services\ContactReport\TelephoneDirectory.ContactReport.Core\TelephoneDirectory.ContactReport.Core.csproj", "{5FDE4BBE-6165-4564-8FE7-6DB8E57C64BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneDirectory.ContactReport.Repository", "Services\ContactReport\TelephoneDirectory.ContactReport.Repository\TelephoneDirectory.ContactReport.Repository.csproj", "{E6A38B29-180C-4F44-A9CB-8848A486389F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneDirectory.ContactReport.Service", "Services\ContactReport\TelephoneDirectory.ContactReport.Service\TelephoneDirectory.ContactReport.Service.csproj", "{440EBBDA-9BC7-425D-BB0B-C48E4CAEE675}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneDirectory.ContactReport.API", "Services\ContactReport\TelephoneDirectory.ContactReport.API\TelephoneDirectory.ContactReport.API.csproj", "{1DD24FBE-A25E-4247-AC0D-ECAA7925CD7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +55,22 @@ Global
 		{DDE6208B-07EC-43D0-B3D5-838897927ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDE6208B-07EC-43D0-B3D5-838897927ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDE6208B-07EC-43D0-B3D5-838897927ADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FDE4BBE-6165-4564-8FE7-6DB8E57C64BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FDE4BBE-6165-4564-8FE7-6DB8E57C64BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FDE4BBE-6165-4564-8FE7-6DB8E57C64BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FDE4BBE-6165-4564-8FE7-6DB8E57C64BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6A38B29-180C-4F44-A9CB-8848A486389F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6A38B29-180C-4F44-A9CB-8848A486389F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6A38B29-180C-4F44-A9CB-8848A486389F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6A38B29-180C-4F44-A9CB-8848A486389F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{440EBBDA-9BC7-425D-BB0B-C48E4CAEE675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{440EBBDA-9BC7-425D-BB0B-C48E4CAEE675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{440EBBDA-9BC7-425D-BB0B-C48E4CAEE675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{440EBBDA-9BC7-425D-BB0B-C48E4CAEE675}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DD24FBE-A25E-4247-AC0D-ECAA7925CD7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DD24FBE-A25E-4247-AC0D-ECAA7925CD7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DD24FBE-A25E-4247-AC0D-ECAA7925CD7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DD24FBE-A25E-4247-AC0D-ECAA7925CD7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +86,9 @@ Global
 		{E2573B1B-FD67-4FDD-B5CD-8D5358102C5B} = {478FA16F-556A-4E9C-B415-0470533670C5}
 		{635F4095-D027-43C1-9D61-71608F525045} = {478FA16F-556A-4E9C-B415-0470533670C5}
 		{DDE6208B-07EC-43D0-B3D5-838897927ADD} = {478FA16F-556A-4E9C-B415-0470533670C5}
+		{5FDE4BBE-6165-4564-8FE7-6DB8E57C64BC} = {D3489871-2A48-4DBF-9E8B-FDE032694138}
+		{E6A38B29-180C-4F44-A9CB-8848A486389F} = {D3489871-2A48-4DBF-9E8B-FDE032694138}
+		{440EBBDA-9BC7-425D-BB0B-C48E4CAEE675} = {D3489871-2A48-4DBF-9E8B-FDE032694138}
+		{1DD24FBE-A25E-4247-AC0D-ECAA7925CD7D} = {D3489871-2A48-4DBF-9E8B-FDE032694138}
 	EndGlobalSection
 EndGlobal

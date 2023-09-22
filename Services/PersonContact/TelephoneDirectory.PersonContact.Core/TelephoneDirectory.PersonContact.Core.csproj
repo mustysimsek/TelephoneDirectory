@@ -10,11 +10,13 @@
     <None Remove="Entities\" />
     <None Remove="Common\" />
     <None Remove="Enums\" />
+    <None Remove="Requests\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Common\" />
     <Folder Include="Enums\" />
+    <Folder Include="Requests\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.21.0" />

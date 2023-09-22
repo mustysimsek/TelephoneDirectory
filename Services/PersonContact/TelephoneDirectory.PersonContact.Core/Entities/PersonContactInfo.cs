@@ -9,7 +9,7 @@ namespace TelephoneDirectory.PersonContact.Core.Entities
 	public class PersonContactInfo : Document
 	{
         [BsonRepresentation(BsonType.ObjectId)]
-        public Guid PersonId { get; set; }
+        public string PersonId { get; set; }
         [BsonIgnore]
         public Person Person { get; set; }
         public PersonContactInfoType PersonContactInfoType { get; set; }
