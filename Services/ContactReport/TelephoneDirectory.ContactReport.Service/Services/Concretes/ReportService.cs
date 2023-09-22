@@ -37,20 +37,12 @@ namespace TelephoneDirectory.ContactReport.Service.Services.Concretes
                 NumberOfRegisteredPhones = message.NumberOfRegisteredPhones,
                 ReportStatus = (ReportStatus)message.ReportStatus
             };
-
-            if (report.ReportStatus == ReportStatus.Preparing)
-            {
-                await GenerateReport(report);
-            }
-            else
-            {
-                await UpdateGenerateReport(report);
-            }
+            await GenerateReport(report);
         }
 
         public async Task<Shared.Dtos.Response<List<Report>>> GetAllAsync()
         {
-            var reports = await _reportCollection.Find(report => true).ToListAsync();
+            var reports = await _reportCollection.Find(report => true).SortByDescending(report => report.ReportRequestDate).ToListAsync();
             if (reports == null)
             {
                 return Shared.Dtos.Response<List<Report>>.Fail("There is no any report", 404);
@@ -81,7 +73,7 @@ namespace TelephoneDirectory.ContactReport.Service.Services.Concretes
                 Location = reportDto.Location,
                 NumberOfRegisteredPersons = reportDto.NumberOfRegisteredPersons,
                 NumberOfRegisteredPhones = reportDto.NumberOfRegisteredPhones,
-                ReportStatus = reportDto.ReportStatus
+                ReportStatus = ReportStatus.Completed
             };
 
             await _reportCollection.InsertOneAsync(reportEntity);
@@ -98,33 +90,6 @@ namespace TelephoneDirectory.ContactReport.Service.Services.Concretes
             };
 
             return Shared.Dtos.Response<ReportDto>.Success(responseModel, 200);
-        }
-
-        public async Task<Shared.Dtos.Response<ReportDto>> UpdateGenerateReport(ReportDto reportDto)
-        {
-            var reportEntity = new Report
-            {
-                CreateDate = DateTime.Now,
-                UUID = reportDto.Id,
-                ModifiedDate = DateTime.Now,
-                ReportRequestDate = reportDto.ReportRequestDate,
-                Location = reportDto.Location,
-                NumberOfRegisteredPersons = reportDto.NumberOfRegisteredPersons,
-                NumberOfRegisteredPhones = reportDto.NumberOfRegisteredPhones,
-                ReportStatus = reportDto.ReportStatus
-            };
-
-            var reportState = _reportCollection.
-                Find<Report>(x => x.Location == reportDto.Location &&
-                x.ReportRequestDate == reportDto.ReportRequestDate &&
-                x.ReportStatus == ReportStatus.Preparing).ToList();
-
-            reportEntity.UUID = reportState[0].UUID;
-
-            var filter = Builders<Report>.Filter.Eq(doc => doc.UUID, reportDto.Id);
-            await _reportCollection.FindOneAndReplaceAsync(filter, reportEntity);
-
-            return Shared.Dtos.Response<ReportDto>.Success(200);
         }
     }
 }

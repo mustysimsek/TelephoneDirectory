@@ -10,7 +10,7 @@ namespace TelephoneDirectory.ContactReport.Service.Services.Abstracts
         Task<Response<List<Report>>> GetAllAsync();
         Task<Response<Report>> GetByIdAsync(string id);
         Task<Response<ReportDto>> GenerateReport(ReportDto reportDto);
-        Task<Response<ReportDto>> UpdateGenerateReport(ReportDto reportDto);
+        //Task<Response<ReportDto>> UpdateGenerateReport(ReportDto reportDto);
     }
 }
 

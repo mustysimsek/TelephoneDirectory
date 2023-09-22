@@ -76,7 +76,7 @@ namespace TelephoneDirectory.PersonContact.Service.Services.Concretes
                 return Response<ReportDto>.Fail("There are no registered users at this location", 404);
             }
 
-            reportRequest.ReportStatus = Dtos.ReportStatus.Completed;
+            //reportRequest.ReportStatus = Dtos.ReportStatus.Preparing;
             reportRequest.NumberOfRegisteredPersons = personNumbersAtLocation;
             reportRequest.NumberOfRegisteredPhones = registeredPhoneNumbersAtLocation;
 

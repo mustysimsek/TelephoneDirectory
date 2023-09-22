@@ -16,7 +16,7 @@ using TelephoneDirectory.Shared.Messages;
 
 namespace TelephoneDirectory.PersonContact.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/personcontactinfos")]
     [ApiController]
     public class PersonContactInfoController : CustomBaseController
     {
@@ -51,16 +51,11 @@ namespace TelephoneDirectory.PersonContact.API.Controllers
         {
             var createReportMessageCommand = new CreateReportMessageCommand();
 
-            createReportMessageCommand.Location = location;
-            createReportMessageCommand.ReportRequestDate = DateTime.Now;
-            createReportMessageCommand.ReportStatus = (Shared.Enums.ReportStatus)Core.Enums.ReportStatus.Preparing;
-
-            //await _rabbitMqService.SendMessage(createReportMessageCommand);
-
             var reportRequest = new ReportDto
             {
-                Location = createReportMessageCommand.Location,
-                ReportRequestDate = createReportMessageCommand.ReportRequestDate
+                Location = location,
+                ReportRequestDate = DateTime.Now,
+                ReportStatus = ReportStatus.Preparing
             };
 
             var report = await _personContactInfoService.GetReportByLocation(reportRequest);

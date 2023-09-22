@@ -37,15 +37,6 @@ namespace TelephoneDirectory.ContactReport.API.Controllers
 
             return CreateActionResultInstance(response);
         }
-
-
-        [HttpPost]
-        public async Task<IActionResult> Create(ReportDto reportDto)
-        {
-            var response = await _reportService.GenerateReport(reportDto);
-
-            return CreateActionResultInstance(response);
-        }
     }
 }
 

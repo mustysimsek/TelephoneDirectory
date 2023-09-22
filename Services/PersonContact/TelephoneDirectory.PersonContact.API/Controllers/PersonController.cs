@@ -13,7 +13,7 @@ using TelephoneDirectory.Shared.Dtos;
 
 namespace TelephoneDirectory.PersonContact.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/persons")]
     [ApiController]
     public class PersonController : CustomBaseController
     {
