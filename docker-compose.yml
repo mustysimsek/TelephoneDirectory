@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  telephonedirectorydb:
+   image: mongo
+  rabbitmq:
+   image: rabbitmq:3.12.5-management
+  personcontact.api:
+   image: personcontact_api_image
+   build: 
+     context: .
+     dockerfile: Services/PersonContact/TelephoneDirectory.PersonContact.API/Dockerfile
+  contactreport.api:
+   image: contactreport_api_image
+   build: 
+     context: .
+     dockerfile: Services/ContactReport/TelephoneDirectory.ContactReport.API/Dockerfile
+volumes:
+  telephonedirectorydb_volume:

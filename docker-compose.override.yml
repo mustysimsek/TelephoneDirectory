@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  telephonedirectorydb:
+   container_name: telephonedirectorydb
+   restart: always
+   ports:
+        - "27017:27017"
+   volumes:
+     - telephonedirectorydb_volume:/data/db
+  rabbitmq:
+   container_name: rabbitmq
+   restart: always
+   ports: 
+        - 127.0.0.1:5672:5672
+        - 127.0.0.1:15672:15672
+  personcontact.api:
+   container_name: personcontact.api
+   environment:
+    - ASPNETCORE_ENVIRONMENT=Development
+    - RabbitMQUrl:rabbitmq
+    - DatabaseSettings:ConnectionString=mongodb://telephonedirectorydb:27017
+   ports:
+    - "5011:80"
+   depends_on:
+    - telephonedirectorydb
+  contactreport.api:
+   container_name: contactreport.api
+   environment:
+    - ASPNETCORE_ENVIRONMENT=Development
+    - RabbitMQUrl:rabbitmq
+    - DatabaseSettings:ConnectionString=mongodb://telephonedirectorydb:27017
+   ports:
+    - "5012:80"
+   depends_on:
+    - telephonedirectorydb
