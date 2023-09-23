@@ -16,7 +16,7 @@ using TelephoneDirectory.Shared.Messages;
 
 namespace TelephoneDirectory.PersonContact.API.Controllers
 {
-    [Route("api/v1/personcontactinfos")]
+    [Route("api/[controller]")]
     [ApiController]
     public class PersonContactInfoController : CustomBaseController
     {
