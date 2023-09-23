@@ -2,6 +2,9 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0-bookworm-slim as build
 WORKDIR /app
 EXPOSE 80
 COPY Shared/TelephoneDirectory.Shared/*.csproj Shared/TelephoneDirectory.Shared/
+COPY Services/PersonContact/TelephoneDirectory.PersonContact.Core/*.csproj Services/PersonContact/TelephoneDirectory.PersonContact.Core/
+COPY Services/PersonContact/TelephoneDirectory.PersonContact.Repository/*.csproj Services/PersonContact/TelephoneDirectory.PersonContact.Repository/
+COPY Services/PersonContact/TelephoneDirectory.PersonContact.Service/*.csproj Services/PersonContact/TelephoneDirectory.PersonContact.Service/
 COPY Services/PersonContact/TelephoneDirectory.PersonContact.API/*.csproj Services/PersonContact/TelephoneDirectory.PersonContact.API/
 RUN dotnet restore Services/PersonContact/TelephoneDirectory.PersonContact.API/*.csproj
 COPY . .

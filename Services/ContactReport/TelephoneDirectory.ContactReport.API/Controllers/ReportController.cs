@@ -11,7 +11,7 @@ using TelephoneDirectory.Shared.ControllerBases;
 
 namespace TelephoneDirectory.ContactReport.API.Controllers
 {
-    [Route("api/v1/reports")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ReportController : CustomBaseController
     {
