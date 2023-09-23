@@ -397,4 +397,8 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+<<<<<<< HEAD
 **/.DS_Store
+=======
+**/.DS_Store
+>>>>>>> 851553d (Refactor docker-compose.yml)
